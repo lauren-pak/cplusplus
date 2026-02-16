@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
-int dp[256];
-vector<int> adjlist[256];
+int dp[1001];
+vector<int> adjlist[1001];
 int paths(int x){
     if(dp[x] != -1) return dp[x];
-    if(x==0) return dp[x] = 0;
-    dp[x] = 255;
+    if (x==0) return dp[x] = 0;
+    dp[x] = 1000;
     for(int i: adjlist[x]){
         dp[x] = min(dp[x], paths(i)+1);
     }
@@ -25,10 +25,10 @@ int main() {
     for(int i=0; i<h; i++){
         int a, b;
         cin>>a>>b;
-        adjlist[b].push_back(a);
+        adjlist[a].push_back(b);
 
     }
-    cout<<paths(n-1)<<endl;
-	return 0;
+    cout<<paths(n-1);
 
     // Your code here
+}

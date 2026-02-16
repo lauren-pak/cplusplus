@@ -1,43 +1,36 @@
 #include <bits/stdc++.h>
-
 using namespace std;
+int main(){
+    int x, n; cin>>x>>n;
+    vector<int> adj_list[x];
+    int total = 0;
+    bool vis[x] = {false};
+    
+    for(int i=0; i<n; i++){
+        int a, b;
+        cin>>a>>b;
+        adj_list[a].push_back(b);
+        adj_list[b].push_back(a);
 
-vector<int> adj_list[1000001];
-bool visited[1000001];
-
-void bfs(int start_node){
-    queue<int> q;
-    q.push(start_node);
-    visited[start_node] = true;
-    while(!q.empty()){
-        int next = q.front();
-        q.pop();
-        for(int neighbor: adj_list[next]){
-            if(!visited[neighbor]){
-                q.push(neighbor);
-                visited[neighbor] = true;
+    }
+    for(int i=0; i<x; i++){
+        if (vis[i]!=1){
+            total++;
+            queue<int> q;
+            q.push(i);
+            vis[i] = true;
+            while (q.size()){
+                int c = q.front();
+                q.pop();
+                for (int j: adj_list[c]){
+                    if (vis[j]) continue;
+                    vis[j] = true;
+                    q.push(j);
+                }
             }
         }
     }
+    cout<<total;
+
 
 }
-
-
-int main(){
-    int N,E;
-    cin>>N>>E;
-    for(int i=0;i<E;i++){
-        int A,B;
-        cin>>A>>B;
-        adj_list[A].push_back(B);
-        adj_list[B].push_back(A);}
-
-    int cds=0;
-    for(int x=0;x<N;x++){
-        if(!visited[x]){
-            bfs(x);
-            cds+=1;
-            }
-        }
-    cout<<cds;
-    }
